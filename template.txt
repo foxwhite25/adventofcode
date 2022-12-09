@@ -1,0 +1,22 @@
+package main
+
+import (
+	"io/ioutil"
+)
+
+func part2(input []byte) {
+	println("Part 2:", )
+}
+
+func part1(input []byte) {
+	println("Part 1:", )
+}
+
+func main() {
+	input, err := ioutil.ReadFile("./%d/%d/input.txt")
+	if err != nil {
+		panic(err)
+	}
+	part1(input)
+	part2(input)
+}
