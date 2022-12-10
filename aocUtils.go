@@ -197,5 +197,12 @@ func main() {
 		panic(err)
 	}
 	template = string(tmp)
-	alertLoop(2022)
+	input, err := getInput(2022, 10)
+	if err != nil {
+		panic(err)
+	}
+	err = saveInput(2022, 10, input)
+	if err != nil {
+		panic(err)
+	}
 }
