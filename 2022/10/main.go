@@ -46,22 +46,17 @@ func (c *Computer) ProcessInstruction(instruction string, argument int) {
 }
 
 func part2(input []byte) {
-	computer := Computer{}
-	computer.x = 1
-	for _, s := range strings.Split(string(input), "\n") {
-		args := strings.Split(s, " ")
-		instruction := args[0]
-		var argument int
-		if len(args) > 1 {
-			argument, _ = strconv.Atoi(args[1])
-		}
-		computer.ProcessInstruction(instruction, argument)
-	}
+	computer := processInput(input)
 	println("Part 2:")
 	println(computer.crtOutput)
 }
 
 func part1(input []byte) {
+	computer := processInput(input)
+	println("Part 1:", computer.totalSignal)
+}
+
+func processInput(input []byte) Computer {
 	computer := Computer{}
 	computer.x = 1
 	for _, s := range strings.Split(string(input), "\n") {
@@ -73,7 +68,7 @@ func part1(input []byte) {
 		}
 		computer.ProcessInstruction(instruction, argument)
 	}
-	println("Part 1:", computer.totalSignal)
+	return computer
 }
 
 func main() {
