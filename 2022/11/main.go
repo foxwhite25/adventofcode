@@ -14,11 +14,14 @@ type Monkey struct {
 	falseThrow   int
 }
 
-var MonkeyList []Monkey
-
-var Biggest = 1
-
 func part2(input []byte) {
+	var MonkeyList []Monkey
+	Biggest := 1
+	for _, monkey := range strings.Split(string(input), "\n\n") {
+		m, b := parseMonkey(monkey)
+		MonkeyList = append(MonkeyList, m)
+		Biggest *= b
+	}
 	worryLevels := make([][]int, len(MonkeyList))
 	for i, monkey := range MonkeyList {
 		worryLevels[i] = monkey.startingItem
@@ -55,6 +58,11 @@ func part2(input []byte) {
 }
 
 func part1(input []byte) {
+	var MonkeyList []Monkey
+	for _, monkey := range strings.Split(string(input), "\n\n") {
+		m, _ := parseMonkey(monkey)
+		MonkeyList = append(MonkeyList, m)
+	}
 	worryLevels := make([][]int, len(MonkeyList))
 	for i, monkey := range MonkeyList {
 		worryLevels[i] = monkey.startingItem
@@ -91,7 +99,8 @@ func part1(input []byte) {
 	println("Part 1:", max*secondMax)
 }
 
-func parseMonkey(monkey string) {
+func parseMonkey(monkey string) (Monkey, int) {
+	var Biggest = 1
 	m := Monkey{}
 	for _, s := range strings.Split(monkey, "\n") {
 		s = strings.TrimSpace(s)
@@ -161,7 +170,7 @@ func parseMonkey(monkey string) {
 			m.falseThrow = i
 		}
 	}
-	MonkeyList = append(MonkeyList, m)
+	return m, Biggest
 }
 
 func main() {
@@ -169,14 +178,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	for _, monkey := range strings.Split(string(input), "\n\n") {
-		parseMonkey(monkey)
-	}
 	part1(input)
-	MonkeyList = MonkeyList[:0]
-	Biggest = 1
-	for _, monkey := range strings.Split(string(input), "\n\n") {
-		parseMonkey(monkey)
-	}
 	part2(input)
 }
