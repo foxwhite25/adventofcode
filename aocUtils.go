@@ -134,11 +134,10 @@ func allInputFromYear(year int, maxDay int) {
 
 func timeTillNextDay() time.Duration {
 	now := time.Now().UTC()
-	// Time till next UTC 5am
-	if now.Hour() < 5 {
-		return time.Date(now.Year(), now.Month(), now.Day(), 5, 0, 0, 0, time.UTC).Sub(now)
-	}
-	return time.Date(now.Year(), now.Month(), now.Day()+1, 5, 0, 0, 0, time.UTC).Sub(now)
+	next := now.Add(time.Hour * 24)
+	next = time.Date(next.Year(), next.Month(), next.Day(), 5, 0, 0, 0, time.UTC)
+	diff := next.Sub(now)
+	return diff
 }
 
 func nextDayCount() int {
@@ -185,7 +184,6 @@ func alertLoop(year int) {
 		if err != nil {
 			panic(err)
 		}
-		err = saveTemplate(year, day)
 	}
 }
 
@@ -199,5 +197,13 @@ func main() {
 		panic(err)
 	}
 	template = string(tmp)
-	alertLoop(2022)
+	input, err := getInput(2022, 11)
+	if err != nil {
+		panic(err)
+	}
+	err = saveInput(2022, 11, input)
+	if err != nil {
+		panic(err)
+	}
+	err = saveTemplate(2022, 11)
 }
