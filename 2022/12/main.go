@@ -18,6 +18,15 @@ func part2(input []byte) {
 		for x, height := range line {
 			if height == 'a'-96 {
 				start = Coordinate{X: x, Y: y}
+				gotB := false
+				for _, coordinate := range getNeighbors(heightMap, x, y) {
+					if heightMap[coordinate.Y][coordinate.X] == 'b'-96 {
+						gotB = true
+					}
+				}
+				if !gotB {
+					continue
+				}
 				length := findShortestPathToHighest(heightMap, start, end)
 				if length < lowest && length > 0 {
 					lowest = length
