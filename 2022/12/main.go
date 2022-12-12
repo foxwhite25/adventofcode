@@ -34,9 +34,6 @@ func part1(input []byte) {
 }
 
 func findShortestPathToHighest(heightMap [][]int, start Coordinate, end Coordinate) int {
-	//you should do it in as few steps as possible
-	//the elevation of the destination square can be at most one higher than the elevation of your current square
-	//you can move exactly one square up, down, left, or right
 	coordinateHash := func(c Coordinate) int {
 		return c.X*1000 + c.Y
 	}
