@@ -14,15 +14,19 @@ type Node struct {
 	special  int
 }
 
+func cmp(a, b int) int {
+	if a < b {
+		return 1
+	}
+	if a > b {
+		return -1
+	}
+	return 0
+}
+
 func compareNodes(n1 *Node, n2 *Node) int {
 	if n1.nodeType == "number" && n2.nodeType == "number" {
-		if n1.value < n2.value {
-			return 1
-		}
-		if n1.value > n2.value {
-			return -1
-		}
-		return 0
+		return cmp(n1.value, n2.value)
 	}
 	if n1.nodeType == "number" {
 		n1.nodeType = "list"
@@ -44,13 +48,7 @@ func compareNodes(n1 *Node, n2 *Node) int {
 		}
 		return check
 	}
-	if len(n1.children) < len(n2.children) {
-		return 1
-	}
-	if len(n1.children) > len(n2.children) {
-		return -1
-	}
-	return 0
+	return cmp(len(n1.children), len(n2.children))
 }
 
 func parseList(input string) *Node {
