@@ -197,13 +197,13 @@ func main() {
 		panic(err)
 	}
 	template = string(tmp)
-	input, err := getInput(2022, 14)
+	input, err := getInput(2022, 15)
 	if err != nil {
 		panic(err)
 	}
-	err = saveInput(2022, 14, input)
+	err = saveInput(2022, 15, input)
 	if err != nil {
 		panic(err)
 	}
-	err = saveTemplate(2022, 14)
+	err = saveTemplate(2022, 15)
 }
