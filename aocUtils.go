@@ -188,6 +188,9 @@ func alertLoop(year int) {
 }
 
 func main() {
+	YEAR := 2022
+	DAY := 16
+
 	err := LoadConfig()
 	if err != nil {
 		panic(err)
@@ -197,13 +200,14 @@ func main() {
 		panic(err)
 	}
 	template = string(tmp)
-	input, err := getInput(2022, 15)
+	template = fmt.Sprintf(template, YEAR, DAY)
+	input, err := getInput(YEAR, DAY)
 	if err != nil {
 		panic(err)
 	}
-	err = saveInput(2022, 15, input)
+	err = saveInput(YEAR, DAY, input)
 	if err != nil {
 		panic(err)
 	}
-	err = saveTemplate(2022, 15)
+	err = saveTemplate(YEAR, DAY)
 }
