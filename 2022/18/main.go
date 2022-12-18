@@ -30,35 +30,26 @@ func part2(input []byte) {
 		cubeSpace[cube] = true
 	}
 	exterior := make(map[Cube]bool)
-	markExterior(Cube{x: 0, y: 0, z: 0}, cubeSpace, exterior, cubeSize)
-	// Find the total exterior surface area of the cubes
-	var totalSurfaceArea int
-	for _, cube := range cubes {
-		var surfaceArea int
-		for _, neighbor := range neighbors(cube) {
-			if !cubeSpace[neighbor] && exterior[neighbor] {
-				surfaceArea++
-			}
-		}
-		totalSurfaceArea += surfaceArea
-	}
-	println("Part 2:", totalSurfaceArea)
+	count := markExterior(Cube{x: 0, y: 0, z: 0}, cubeSpace, exterior, cubeSize)
+	println("Part 2:", count)
 }
 
-func markExterior(cube Cube, cubeSpace map[Cube]bool, exterior map[Cube]bool, cubeSize Cube) {
+func markExterior(cube Cube, cubeSpace map[Cube]bool, exterior map[Cube]bool, cubeSize Cube) int {
 	if exterior[cube] {
-		return
+		return 0
 	}
 	if cube.x < -1 || cube.x > cubeSize.x+1 || cube.y < -1 || cube.y > cubeSize.y+1 || cube.z < -1 || cube.z > cubeSize.z+1 {
-		return
+		return 0
 	}
 	if cubeSpace[cube] {
-		return
+		return 1
 	}
 	exterior[cube] = true
+	var count int
 	for _, neighbor := range neighbors(cube) {
-		markExterior(neighbor, cubeSpace, exterior, cubeSize)
+		count += markExterior(neighbor, cubeSpace, exterior, cubeSize)
 	}
+	return count
 }
 
 func neighbors(cube Cube) []Cube {
@@ -78,9 +69,6 @@ func part1(input []byte) {
 	for _, cube := range cubes {
 		cubeSpace[cube] = true
 	}
-	// Find the total surface area of the cubes
-	// Each cube is 1x1x1
-	// Each cube has 6 sides
 	var totalSurfaceArea int
 	for _, cube := range cubes {
 		var surfaceArea int
