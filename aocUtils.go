@@ -189,7 +189,7 @@ func alertLoop(year int) {
 
 func main() {
 	YEAR := 2022
-	DAY := 16
+	DAY := 18
 
 	err := LoadConfig()
 	if err != nil {
